@@ -21,11 +21,10 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 # ==============================
 # Load trained model from external storage
 # ==============================
-MODEL_URL = os.environ.get('MODEL_URL') # Set in Render environment variables
+MODEL_URL = os.environ.get('MODEL_URL')  # Set in Render environment variables
 MODEL_DIR = "models"
 os.makedirs(MODEL_DIR, exist_ok=True)
 MODEL_PATH = os.path.join(MODEL_DIR, "face_emotionModel.h5")
- # Render free-tier temp folder
 
 # Download model if it doesn't exist locally
 if not os.path.exists(MODEL_PATH):
@@ -139,5 +138,5 @@ def submit():
 # Run app
 # ==============================
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=10000)
-
+    port = int(os.environ.get("PORT", 5000))  # Use Render port if available
+    app.run(host="0.0.0.0", port=port)
